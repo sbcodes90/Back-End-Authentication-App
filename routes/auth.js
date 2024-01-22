@@ -5,6 +5,8 @@ const  { registerValidation, loginValidation } = require('../validation');
 //validation
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 
 const schema = Joi.object({
     userName: Joi.string().min(3).max(255).required(),
@@ -56,7 +58,10 @@ router.post('/login', async (req, res) => {
      const correctPass = await bcrypt.compare(req.body.password, user.password);
      if (!correctPass) return res.status(400).send('Invalid Password')
 
-     res.send(`Success!`)
+     //Create JWT token when user logs in succesfully they are assigned a id
+     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+     res.header('auth-token', token).send(token);
+     //res.send(`Success!`)
  });
 
 
