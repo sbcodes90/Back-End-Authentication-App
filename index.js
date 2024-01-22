@@ -1,7 +1,12 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+
+//Import routes
+const authRoute = require('./routes/auth');
+
+dotenv.config();
 
 //Connect to DB
 const mongoInfo = process.env.DB_KEY;
@@ -16,8 +21,10 @@ database.once('connected', () => {
 database.on('error', (error) => {
     console.log(error)
 })
-//Import routes
-const authRoute = require('./routes/auth');
+
+//Middleware
+app.use(express.json());//parses data to json
+
 
 //Route Middlewares
 app.use('/api/user', authRoute); //prefix  /api/user/register or api/user/login
