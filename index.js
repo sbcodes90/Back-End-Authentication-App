@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+var cors = require("cors");
 
 //Import routes
 const authRoute = require('./routes/auth');
@@ -25,6 +26,7 @@ database.on('error', (error) => {
 })
 
 //Middleware
+app.use(cors());
 app.use(express.json());//parses data to json
 
 
