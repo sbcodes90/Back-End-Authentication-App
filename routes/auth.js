@@ -1,7 +1,7 @@
 //authentication routes
 const User = require('../model/User');
 const router = require('express').Router();
-const  { registerValidation } = require('../validation');
+const  { registerValidation, loginValidation } = require('../validation');
 //validation
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs');
@@ -12,8 +12,6 @@ const schema = Joi.object({
     email: Joi.string().min(10).max(255).required().email()
 
 });
-
-
 
 router.post('/register', async (req, res) => {
    
@@ -43,5 +41,23 @@ router.post('/register', async (req, res) => {
         res.status(400).send(err);
     }
 });
+
+router.post('/login', async (req, res) => {
+   
+    //validate data before we log in
+    const {error} = loginValidation(req.body);
+     if(error) return res.status(400).send(error);
+ 
+     //Check if email exists
+     const user = await User.findOne({email: req.body.email});
+     if(!user) return res.status(400).send('Email is not found');
+ 
+     //Check if password is correct
+     const correctPass = await bcrypt.compare(req.body.password, user.password);
+     if (!correctPass) return res.status(400).send('Invalid Password')
+
+     res.send(`Success!`)
+ });
+
 
 module.exports = router;
