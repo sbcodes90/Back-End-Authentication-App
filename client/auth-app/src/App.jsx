@@ -28,6 +28,8 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <h1 className="text-3xl font-bold text-red-500 underline text-center">Hello world!</h1> 
+
     </>
   )
 }
