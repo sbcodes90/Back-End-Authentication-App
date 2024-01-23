@@ -37,7 +37,7 @@ function App() {
               />
               {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between px-2">
               <button
                 className="bg-black hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
