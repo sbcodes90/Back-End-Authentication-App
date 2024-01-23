@@ -4,7 +4,7 @@ function SignUp() {
   return (
     <div className="h-screen flex items-center justify-center bg-teal-400">
     <div className="bg-white w-[600px] h-auto rounded-3xl mx-10 pb-10 border-teal-500 border-[10px]">
-      <h1 className="text-3xl font-medium text-black text-center mt-[40px] mb-10">
+      <h1 className="text-3xl font-bold text-black text-center mt-[40px] mb-10">
         Sign Up
       </h1>
 
