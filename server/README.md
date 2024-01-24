@@ -8,3 +8,5 @@ All user passwords are encrypted and stored in the Mongo DB.
 Also features validation on user submitted information using hapi/joi :-)
 
 Front End coming soon!......
+
+Note: Run this application in your vs code terminal using npm start and the database and server connections will automatically start
