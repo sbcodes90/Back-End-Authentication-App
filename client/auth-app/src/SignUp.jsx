@@ -1,6 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function SignUp() {
+
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let result = await axios.post(
+    'http://localhost:3000/api/user/register', {
+        method: "post",
+        body: JSON.stringify({ userName, email, password }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    result = await result?.data;
+    console.warn(result);
+    if (result) {
+        alert("Data saved succesfully");
+        setEmail("");
+        setUserName("");
+    }
+}
+
   return (
     <div className="h-screen flex items-center justify-center bg-teal-400">
     <div className="bg-white w-[600px] h-auto rounded-3xl mx-10 pb-10 border-teal-500 border-[10px]">
@@ -21,6 +46,8 @@ function SignUp() {
             id="username"
             type="text"
             placeholder="Username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className="mb-6">
@@ -35,6 +62,8 @@ function SignUp() {
             id="password"
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="mb-6">
@@ -49,12 +78,15 @@ function SignUp() {
             id="email"
             type="email"
             placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="flex items-center justify-between px-2">
-          <button
+          <button 
             className="bg-black hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
+            type="submit"
+            onClick={handleSubmit}
           >
             Create Account
           </button>
